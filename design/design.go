@@ -5,22 +5,26 @@ import (
 	. "github.com/goadesign/goa/design/apidsl"
 )
 
-var _ = API("adder", func() {
-	Title("The adder API")
-	Description("A teaser for goa")
-	Host("localhost:8080")
+var _ = API("page", func() {
+	Title("Page")
+	Description("page")
+	Host("localhost:8081")
 	Scheme("http")
 })
 
-var _ = Resource("operands", func() {
-	Action("add", func() {
-		Routing(GET("add/:left/:right"))
-		Description("add returns the sum of the left and right parameters in the response body")
-		Params(func() {
-			Param("left", Integer, "Left operand")
-			Param("right", Integer, "Right operand")
-		})
-		Response(OK, "text/plain")
+var _ = Resource("pages", func() {
+	Action("home", func() {
+		Routing(GET("/"))
+		Description("トップページ")
+		Response(OK, "text/html; charset=utf-8")
+		Response(NotFound)
+		Response(InternalServerError)
 	})
-
+	Action("complete", func() {
+		Routing(GET("/complete"))
+		Description("完了ページ")
+		Response(OK, "text/html; charset=utf-8")
+		Response(NotFound)
+		Response(InternalServerError)
+	})
 })

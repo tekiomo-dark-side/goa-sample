@@ -3,43 +3,58 @@ consumes:
 - application/xml
 - application/gob
 - application/x-gob
-host: localhost:8080
+host: localhost:8081
 info:
-  description: A teaser for goa
-  title: The adder API
+  description: page
+  title: Page
   version: ""
 paths:
-  /add/{left}/{right}:
+  /:
     get:
-      description: add returns the sum of the left and right parameters in the response
-        body
-      operationId: operands#add
-      parameters:
-      - description: Left operand
-        in: path
-        name: left
-        required: true
-        type: integer
-      - description: Right operand
-        in: path
-        name: right
-        required: true
-        type: integer
+      description: トップページ
+      operationId: pages#home
       produces:
-      - text/plain
+      - text/html; charset=utf-8
       responses:
         "200":
           description: OK
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
       schemes:
       - http
-      summary: add operands
+      summary: home pages
       tags:
-      - operands
+      - pages
+  /complete:
+    get:
+      description: 完了ページ
+      operationId: pages#complete
+      produces:
+      - text/html; charset=utf-8
+      responses:
+        "200":
+          description: OK
+        "404":
+          description: Not Found
+        "500":
+          description: Internal Server Error
+      schemes:
+      - http
+      summary: complete pages
+      tags:
+      - pages
 produces:
 - application/json
 - application/xml
 - application/gob
 - application/x-gob
+responses:
+  InternalServerError:
+    description: Internal Server Error
+  NotFound:
+    description: Not Found
 schemes:
 - http
 swagger: "2.0"

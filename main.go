@@ -10,7 +10,7 @@ import (
 
 func main() {
 	// Create service
-	service := goa.New("adder")
+	service := goa.New("page")
 
 	// Mount middleware
 	service.Use(middleware.RequestID())
@@ -18,12 +18,12 @@ func main() {
 	service.Use(middleware.ErrorHandler(service, true))
 	service.Use(middleware.Recover())
 
-	// Mount "operands" controller
-	c := NewOperandsController(service)
-	app.MountOperandsController(service, c)
+	// Mount "pages" controller
+	c := NewPagesController(service)
+	app.MountPagesController(service, c)
 
 	// Start service
-	if err := service.ListenAndServe(":8080"); err != nil {
+	if err := service.ListenAndServe(":8081"); err != nil {
 		service.LogError("startup", "err", err)
 	}
 
